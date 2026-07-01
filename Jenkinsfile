@@ -33,17 +33,23 @@ pipeline {
             steps {
                 script {
 
-                    sh "docker tag \
+                    sh """
+                        docker tag \
                         oleksandrsusakdocker/cicd-pipeline:${BUILD_NUMBER} \
-                        oleksandrsusakdocker/cicd-pipeline:latest"
+                        oleksandrsusakdocker/cicd-pipeline:latest
+                    """
 
-                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
 
-                        sh "docker push \
-                            oleksandrsusakdocker/cicd-pipeline:${BUILD_NUMBER}"
+                        sh """
+                            docker push \
+                            oleksandrsusakdocker/cicd-pipeline:${BUILD_NUMBER}
+                        """
 
-                        sh "docker push \
-                            oleksandrsusakdocker/cicd-pipeline:latest"
+                        sh """
+                            docker push \
+                            oleksandrsusakdocker/cicd-pipeline:latest
+                        """
                     }
                 }
             }
