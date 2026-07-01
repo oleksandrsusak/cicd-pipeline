@@ -25,7 +25,7 @@ pipeline {
 
         stage('Docker Image Build') {
             steps {
-                sh "docker build -t oleksandesusakdocker/cicd-pipeline:${BUILD_NUMBER} ."
+                sh "docker build -t oleksandrsusakdocker/cicd-pipeline:${BUILD_NUMBER} ."
             }
         }
 
@@ -34,16 +34,16 @@ pipeline {
                 script {
 
                     sh "docker tag \
-                        oleksandesusakdocker/cicd-pipeline:${BUILD_NUMBER} \
-                        oleksandesusakdocker/cicd-pipeline:latest"
+                        oleksandrsusakdocker/cicd-pipeline:${BUILD_NUMBER} \
+                        oleksandrsusakdocker/cicd-pipeline:latest"
 
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
 
                         sh "docker push \
-                            oleksandesusakdocker/cicd-pipeline:${BUILD_NUMBER}"
+                            oleksandrsusakdocker/cicd-pipeline:${BUILD_NUMBER}"
 
                         sh "docker push \
-                            oleksandesusakdocker/cicd-pipeline:latest"
+                            oleksandrsusakdocker/cicd-pipeline:latest"
                     }
                 }
             }
